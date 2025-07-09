@@ -1,4 +1,16 @@
+# Development & config folders
 src/
 tests/
+.github/
 node_modules/
+
+# Build & tooling files
 .gitignore
+tsconfig.json
+jest.config.ts
+pnpm-lock.yaml
+*.log
+
+# Misc
+*.test.ts
+*.spec.ts

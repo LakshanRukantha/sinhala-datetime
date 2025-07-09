@@ -27,6 +27,11 @@
     "build": "pnpm run build:esm && pnpm run build:cjs",
     "test": "jest"
   },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/LakshanRukantha/sinhala-datetime.git"
