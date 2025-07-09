@@ -23,12 +23,7 @@ jobs:
           cache: "pnpm"
 
       - name: 📦 Install pnpm
-        run: |
-          npm install -g pnpm
-          echo "$(npm bin -g)" >> $GITHUB_PATH
-
-      - name: 📥 Install Dependencies
-        run: pnpm install
+        run: npm install -g pnpm
 
       - name: 🧱 Build Package
         run: pnpm build
@@ -57,9 +52,7 @@ jobs:
           cache: "pnpm"
 
       - name: 📦 Install pnpm
-        run: |
-          npm install -g pnpm
-          echo "$(npm bin -g)" >> $GITHUB_PATH
+        run: npm install -g pnpm
 
       - name: 📥 Install Dependencies
         run: pnpm install
