@@ -2,8 +2,13 @@ import { FormatOptions } from "../types/options";
 import { days, months } from "../utils/constants";
 
 export function formatSinhalaDate(date: Date, options?: FormatOptions): string {
+  if (isNaN(date.getTime())) {
+    return "වලංගු නොවන දිනයකි"; // "Invalid date" in Sinhala
+  }
+
   const dayName = days[date.getDay()];
-  const day = date.getDate();
+  // TODO: Add 0 prefix to dates (.padStart(2, "0"))
+  const day = date.getDate().toString();
   const monthName = months[date.getMonth()];
   const year = date.getFullYear();
 

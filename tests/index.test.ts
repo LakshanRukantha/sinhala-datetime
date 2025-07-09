@@ -1,6 +1,12 @@
 import { formatSinhalaDate } from "../src/index";
 
 describe("formatSinhalaDate", () => {
+  it("should handle invalid date gracefully", () => {
+    const invalidDate = new Date("invalid-date");
+    const result = formatSinhalaDate(invalidDate);
+    expect(result).toBe("වලංගු නොවන දිනයකි");
+  });
+
   it("should format date correctly without time", () => {
     const date = new Date("2025-07-09T00:00:00");
     const result = formatSinhalaDate(date);
