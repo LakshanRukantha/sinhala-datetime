@@ -112,3 +112,4 @@ jobs:
             echo "📦 New version: ${{ steps.version.outputs.new_version }}"
             echo "🏷️ New tag created: v${{ steps.version.outputs.new_version }}"
             echo "✅ Package published to NPM successfully!"
+          fi
