@@ -1,6 +1,6 @@
 {
   "name": "sinhala-datetime",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Sinhala date and time formatter with TypeScript support",
   "type": "module",
   "main": "./dist/cjs/index.js",
