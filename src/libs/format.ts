@@ -3,7 +3,7 @@ import { days, months } from "../utils/constants";
 
 export function formatSinhalaDate(date: Date, options?: FormatOptions): string {
   if (isNaN(date.getTime())) {
-    return "වලංගු නොවන දිනයකි"; // "Invalid date" in Sinhala
+    return "වලංගු නොවන දිනයකි"; // Handle invalid date
   }
 
   const dayName = days[date.getDay()];
