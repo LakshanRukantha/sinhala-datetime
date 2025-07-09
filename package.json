@@ -2,10 +2,29 @@
   "name": "sinhala-datetime",
   "version": "1.0.3",
   "description": "Sinhala date and time formatter with TypeScript support",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "type": "module",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/esm/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/cjs/index.js",
+      "import": "./dist/esm/index.js",
+      "types": "./dist/esm/index.d.ts"
+    },
+    "./format.js": {
+      "require": "./dist/cjs/libs/format.js",
+      "import": "./dist/esm/libs/format.js"
+    },
+    "./constants.js": {
+      "require": "./dist/cjs/libs/constants.js",
+      "import": "./dist/esm/libs/constants.js"
+    }
+  },
   "scripts": {
-    "build": "tsc",
+    "build:esm": "tsc -p tsconfig.esm.json && tsc-alias -p tsconfig.esm.json",
+    "build:cjs": "tsc -p tsconfig.cjs.json",
+    "build": "pnpm run build:esm && pnpm run build:cjs",
     "test": "jest"
   },
   "repository": {
@@ -21,17 +40,18 @@
   ],
   "author": "Lakshan Rukantha",
   "license": "MIT",
-  "type": "module",
   "bugs": {
     "url": "https://github.com/LakshanRukantha/sinhala-datetime/issues"
   },
   "homepage": "https://github.com/LakshanRukantha/sinhala-datetime#readme",
   "devDependencies": {
     "@types/jest": "^30.0.0",
-    "@types/node": "^24.0.12",
+    "@types/node": "^20.6.0",
     "jest": "^30.0.4",
     "ts-jest": "^29.4.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.0.0"
+    "tsc-alias": "^1.8.16",
+    "tsc-esm-fix": "^3.1.2",
+    "typescript": "^5.4.0"
   }
 }

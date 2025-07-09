@@ -1,4 +1,4 @@
-import { formatSinhalaDate } from "../src/index";
+import { formatSinhalaDate } from "../src/index.js";
 
 describe("formatSinhalaDate", () => {
   it("should handle invalid date gracefully", () => {

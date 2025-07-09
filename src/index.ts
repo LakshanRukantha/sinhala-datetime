@@ -1,2 +1,2 @@
-export { formatSinhalaDate } from "./libs/format";
-export type { FormatOptions } from "./types/options";
+export { formatSinhalaDate } from "./libs/format.js";
+export type { FormatOptions } from "./types/options.js";

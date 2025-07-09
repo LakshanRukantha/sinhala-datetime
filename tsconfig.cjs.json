@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "dist/cjs",
+    "module": "CommonJS",
+    "moduleResolution": "Node"
+  },
+  "include": ["src"]
+}
+// This configuration is for CommonJS module output, suitable for Node.js environments.

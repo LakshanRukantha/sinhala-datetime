@@ -1,5 +1,5 @@
-import { FormatOptions } from "../types/options";
-import { days, months } from "../utils/constants";
+import { FormatOptions } from "../types/options.js";
+import { days, months } from "../utils/constants.js";
 
 export function formatSinhalaDate(date: Date, options?: FormatOptions): string {
   if (isNaN(date.getTime())) {
