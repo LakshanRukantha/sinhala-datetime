@@ -1,0 +1,37 @@
+{
+  "name": "sinhala-datetime",
+  "version": "1.0.0",
+  "description": "Sinhala date and time formatter with TypeScript support",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LakshanRukantha/sinhala-datetime.git"
+  },
+  "keywords": [
+    "sinhala",
+    "datetime",
+    "formatter",
+    "npm",
+    "typescript"
+  ],
+  "author": "Lakshan Rukantha",
+  "license": "MIT",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/LakshanRukantha/sinhala-datetime/issues"
+  },
+  "homepage": "https://github.com/LakshanRukantha/sinhala-datetime#readme",
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.0.12",
+    "jest": "^30.0.4",
+    "ts-jest": "^29.4.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.0.0"
+  }
+}

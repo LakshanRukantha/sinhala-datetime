@@ -1,0 +1,108 @@
+name: 📦 Publish NPM Package
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - "v*"
+
+jobs:
+  RunTests:
+    name: 🧪 Run Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: ⬇️ Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: 🛠️ Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "pnpm"
+
+      - name: 📦 Install pnpm
+        run: npm install -g pnpm
+
+      - name: 📥 Install Dependencies
+        run: pnpm install
+
+      - name: 🧱 Build Package
+        run: pnpm build
+
+      - name: 🧪 Run Tests
+        run: pnpm test
+
+  PublishPackage:
+    name: 🚀 Publish Package
+    needs: RunTests
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: ⬇️ Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 🛠️ Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          registry-url: "https://registry.npmjs.org"
+          cache: "pnpm"
+
+      - name: 📦 Install pnpm
+        run: npm install -g pnpm
+
+      - name: 📥 Install Dependencies
+        run: pnpm install
+
+      - name: 🚫 Skip if Tag Push (likely already published)
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          echo "🛑 Skipping publish: this is a tag push, assumed already handled."
+          exit 0
+
+      - name: 🔍 Check Version Change
+        id: version
+        run: |
+          current=$(jq -r .version package.json)
+          latest=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
+          latest_version=${latest#v}
+
+          echo "Current version: $current"
+          echo "Latest published tag: $latest"
+
+          if [ "$current" != "$latest_version" ]; then
+            echo "✅ Version change detected: $latest_version → $current"
+            echo "version_changed=true" >> "$GITHUB_OUTPUT"
+            echo "new_version=$current" >> "$GITHUB_OUTPUT"
+          else
+            echo "🔁 Version unchanged: $current"
+            echo "version_changed=false" >> "$GITHUB_OUTPUT"
+
+      - name: 📤 Publish to NPM
+        if: steps.version.outputs.version_changed == 'true'
+        run: pnpm publish --access public --no-git-checks
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: 🏷️ Create Git Tag (v${{ steps.version.outputs.new_version }})
+        if: steps.version.outputs.version_changed == 'true'
+        run: |
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git tag -a "v${{ steps.version.outputs.new_version }}" -m "Release v${{ steps.version.outputs.new_version }}"
+          git push origin "v${{ steps.version.outputs.new_version }}"
+
+      - name: ℹ️ Publish Status
+        run: |
+          if [ "${{ steps.version.outputs.version_changed }}" = "false" ]; then
+            echo "ℹ️ No version change — skipped NPM publish and tag creation."
+            echo "📦 Package not published, as the version has not changed."
+          else
+            echo "✅ Package published to NPM successfully!"
+            echo "📦 New version: ${{ steps.version.outputs.new_version }}"
